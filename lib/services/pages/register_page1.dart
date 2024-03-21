@@ -1,18 +1,18 @@
 import 'package:chat1/main.dart';
-import 'package:chat1/services/auth/auth_service.dart';
-import 'package:chat1/components/my_button.dart';
+import 'package:chat1/services/auth/auth_service1.dart';
+
 import 'package:chat1/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage1 extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
   final TextEditingController _confirmPwController = TextEditingController();
   final void Function()? onTap;
-  RegisterPage({super.key, required this.onTap});
+  RegisterPage1({super.key, required this.onTap});
   //register
   void register(BuildContext context) {
-    final _auth = AuthService();
+    final _auth = AuthService1();
 
     if (_pwController.text == _confirmPwController.text) {
       try {

@@ -1,8 +1,8 @@
 {
-    "gouvernorats": [
+    "liste": [
       {
-        "nom": "Tunis",
-        "delegations": [
+        "gouvernorat": "Tunis",
+        "délégation": [
           {"nom": "Carthage", "les pharmacies":[{"nomF":"BOUHAJEB HOSNI ","adresse":"1, RUE SCIPION (PR+S DE LA GARE) CARTHAGE ", "tel":71731228}]},
           {"nom": "La Goulette", "les pharmacies":[{"nomF":"BEN JEMAA LAMIA EP KHOCHLEF  ","adresse":"RESIDENCE NARJESS IMM. C3 REZ-DE-CHAUSSEE - MAGASIN N 1 - AVENUE MONGI SLIM LAOUINA - LA GOULETTE - TUNIS", "tel":58399671},{"nomF":"SADDEM ABDERRAZEK","adresse":"194 AVENUE HABIB BOURGUIBA -KHEIREDDINE-LA GOULETTE","tel":71720222}]},
           {"nom": "La Marsa", "les pharmacies":[{"nomF":"ANNABI GHAIET EL MOUNA","adresse":"AVENUE TAIEB M'HIRI N°32 ","tel":71729811},{"nomF":"BACH HAMBA SFAIHI MAHMOUD","adresse":"RUE ALI BELHAOUANE N°9 - LA MARSA ","tel":71775770 },{"nomF":"BEN AMMAR FATEN ","adresse":"AVENUE FATTOUMA BOURGUIBA - ROUTE SOUKRA KM 15.5 LA MARSA TUNIS","tel":71655610}]},
@@ -13,8 +13,8 @@
         ]
       },
       {
-        "nom": "Sousse",
-        "delegations": [
+        "gouvernorat": "Sousse",
+        "délégation": [
           {"nom": "Akouda","les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Bouficha","les pharmacies":[{"nomF": "DRISS DHOUHA EP BOUZID", "adresse": "AVENUE DE LA MEDINA YASMINE HAMMAMET", "tel": "72241242"}]},
           {"nom": "Chat Mariem","les pharmacies":[{"nomF": "AMRI WASSIM", "adresse": "AVENUE 14 JANVIER", "tel": "31555582"}]},
@@ -36,8 +36,8 @@
         ]
       },
       {
-        "nom": "Sfax",
-        "delegations": [
+        "gouvernorat": "Sfax",
+        "délégation": [
           {"nom": "Agareb", "les pharmacies":[{"nomF": "KRICHEN OUSSAMA", "adresse": "AVEUE FARHAT HACHED", "tel": "74271574"}]},
           {"nom": "Bir Ali Ben Khalifa",  "les pharmacies":[{"nomF": "EZZINA NIZER", "adresse": "AVENUE HABIB BOURGUIBA", "tel": "74277520"}]},
           {"nom": "El Amra",  "les pharmacies":[{"nomF": "GUIDARA EYA EP SIALA", "adresse": "ROUTE MAHDIA KM 30 - EL AMRA - SFAX", "tel": "74898989"}]},
@@ -64,8 +64,8 @@
         ]
       },
       {
-        "nom": "Monastir",
-        "delegations": [
+        "gouvernorat": "Monastir",
+        "délégation": [
           {"nom": "Bekalta",  "les pharmacies":[{"nomF": "HERGLI AHMED", "adresse": "13 AVENUE DE L'ENVIRONNEMENT", "tel": "73562135"}]},
           {"nom": "Bembla",  "les pharmacies":[{"nomF": "AMAMI MOHAMED", "adresse": "AVENUE 7 NOVEMBRE 1987", "tel": "73478666"}]},
           {"nom": "Beni Hassen",  "les pharmacies":[{"nomF": "GONGI GHAZI", "adresse": "AVENUE FARHAT HACHED", "tel": "73490008"}]},
@@ -82,8 +82,8 @@
         ]
       },
       {
-        "nom": "Gabès",
-        "delegations": [
+        "gouvernorat": "Gabès",
+        "délégation": [
           {"nom": "Gabès Médina",  "les pharmacies":[{"nomF": "EL GHRIBI CHIRAZ", "adresse": "cité el kilani - 10 avenue mongi slim", "tel": "75220479"}, {"nomF": "IBRAHIM HOUCINE (EX:BEN ZID)", "adresse": "AVENUE JAMAL ABDENNASSER GABES SUD GABES", "tel": "75284200"}, {"nomF": "MOKHTAR MOHAMED FAIEZ", "adresse": "AVENUE ABOU EL KACEM CHABBI -CITE EL MANARA", "tel": "75295969"}]},
           {"nom": "Gabès Ouest",  "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Gabès Sud", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -96,8 +96,8 @@
         ]
       },
       {
-        "nom": "Bizerte",
-        "delegations": [
+        "gouvernorat": "Bizerte",
+        "délégation": [
           {"nom": "Bizerte Nord",  "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Bizerte Sud",  "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "El Alia",  "les pharmacies":[{"nomF": "ELLOUZE WISSEM", "adresse": "AVENUE HABIB BOURGUIBA (DEVANT LA BIAT) - EL ALIA - BIZERTE", "tel": 72442415}]},
@@ -115,8 +115,8 @@
         ]
       },
       {
-        "nom": "Kairouan",
-        "delegations": [
+        "gouvernorat": "Kairouan",
+        "délégation": [
           {"nom": "Bou Hajla",  "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Chebika",  "les pharmacies":[{"nomF": "DIOUANI KHOULOUD", "adresse": "AVENUE DE L'ENVIRONNEMENT", "tel": 77240336}]},
           {"nom": "Echrarda",  "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -131,8 +131,8 @@
         ]
       },
       {
-        "nom": "Gafsa",
-        "delegations": [
+        "gouvernorat": "Gafsa",
+        "délégation": [
           {"nom": "Belkhir", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "El Guettar",  "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "El Ksar",  "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -147,8 +147,8 @@
         ]
       },
       {
-        "nom": "Nabeul",
-        "delegations": [
+        "gouvernorat": "Nabeul",
+        "délégation": [
           {"nom": "Béni Khalled", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Béni Khiar", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Bou Argoub", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -168,8 +168,8 @@
         ]
       },
       {
-        "nom": "Tataouine",
-        "delegations": [
+        "gouvernorat": "Tataouine",
+        "délégation": [
           {"nom": "Bir Lahmar", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Dehiba", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Ghomrassen", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -180,8 +180,8 @@
         ]
       },
       {
-        "nom": "Mahdia",
-        "delegations": [
+        "gouvernorat": "Mahdia",
+        "délégation": [
           {"nom": "Bou Merdes","les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Chebba","les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Chorbane", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -198,8 +198,8 @@
         ]
       },
       {
-        "nom": "Kasserine",
-        "delegations": [
+        "gouvernorat": "Kasserine",
+        "délégation": [
           {"nom": "El Ayoun", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Ezzouhour","les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Fériana", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -216,8 +216,8 @@
         ]
       },
       {
-        "nom": "Médenine",
-        "delegations": [
+        "gouvernorat": "Médenine",
+        "délégation": [
           {"nom": "Ben Gardane", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Beni Khedache", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Djerba-Ajim", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -230,8 +230,8 @@
         ]
       },
       {
-        "nom": "Beja",
-        "delegations": [
+        "gouvernorat": "Beja",
+        "délégation": [
           {"nom": "Amdoun", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "béja Nord", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "béja Sud", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -244,8 +244,8 @@
         ]
       },
       {
-        "nom": "Ben Arous",
-        "delegations": [
+        "gouvernorat": "Ben Arous",
+        "délégation": [
           {"nom": "Ben Arous", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Bou Mhel el-Bassatine", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "El mourouj","les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -261,8 +261,8 @@
         ]
       },
       {
-        "nom": "Manouba",
-        "delegations": [
+        "gouvernorat": "Manouba",
+        "délégation": [
           {"nom": "La Manouba", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Den Den", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Douar Hicher", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -275,8 +275,8 @@
         ]
       },
       {
-        "nom": "Siliana",
-        "delegations": [
+        "gouvernorat": "Siliana",
+        "délégation": [
           {"nom": "Bargou", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "bou Arada", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "El Aroussa", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -291,8 +291,8 @@
         ]
       },
       {
-        "nom": "Zaghouan",
-        "delegations": [
+        "gouvernorat": "Zaghouan",
+        "délégation": [
           {"nom": "Bir Mcherga", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "El Fahs", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Nadhour", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -302,8 +302,8 @@
         ]
       },
       {
-        "nom": "Jendouba",
-        "delegations": [
+        "gouvernorat": "Jendouba",
+        "délégation": [
           {"nom": "Aïn Draham", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Balta-Bou Aouane", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Bou Salem","les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -316,8 +316,8 @@
         ]
       },
       {
-        "nom": "Tozeur",
-        "delegations": [
+        "gouvernorat": "Tozeur",
+        "délégation": [
           {"nom": "Degache", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Hazoua", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Nefta", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
@@ -326,8 +326,8 @@
         ]
       },
       {
-        "nom": "Kébili",
-        "delegations": [
+        "gouvernorat": "Kébili",
+        "délégation": [
           {"nom": "Douz Nord", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Douz Sud", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},
           {"nom": "Faouar", "les pharmacies":[{"nomF":"BACCOUCHE BECHIR","adresse":"AVENUE DE LA REPUBLIQUE NO 12 BIS","tel":"73256106"}]},

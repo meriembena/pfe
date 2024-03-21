@@ -1,4 +1,7 @@
 import 'package:chat1/services/auth/auth_gate.dart';
+import 'package:chat1/services/auth/auth_gate1.dart';
+import 'package:chat1/services/auth/login_or_register1.dart';
+import 'package:chat1/services/pages/login_page1.dart';
 import 'package:chat1/themes/theme_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +80,8 @@ class Racine extends StatelessWidget {
                     // Naviguer vers la page d'authentification
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MyApp1()),
+                      MaterialPageRoute(
+                          builder: (context) => LoginOrRegister1()),
                     );
                   },
                   child: Text('Je suis un chercheur'),
@@ -262,11 +266,12 @@ class _MyAppState extends State<MyApplication> {
 class MyApp3 extends StatefulWidget {
   final bool isPharmacieDeGardeSelected;
   final bool isPharmacieDeNuitSelected;
+  final bool isPharmacieDeJourSelected;
 
   MyApp3({
     required this.isPharmacieDeGardeSelected,
     required this.isPharmacieDeNuitSelected,
-    required bool isPharmacieDeJourSelected,
+    required this.isPharmacieDeJourSelected,
   });
 
   @override
@@ -274,17 +279,15 @@ class MyApp3 extends StatefulWidget {
 }
 
 class _MyApp3State extends State<MyApp3> {
-  String? selectedGouvernorat = 'gouvernorat';
-  String? selectedDelegation = 'délégation';
+  String? selectedGouvernorat;
+  String? selectedDelegation;
   late List<String> gouvernorats = [];
-  late Map<String, List<String>> delegations;
+  late Map<String, List<String>> delegations = {};
 
   @override
   void initState() {
     super.initState();
     chargerDonnees();
-    selectedGouvernorat = 'gouvernorat';
-    selectedDelegation = null;
   }
 
   Future<void> chargerDonnees() async {
@@ -295,7 +298,6 @@ class _MyApp3State extends State<MyApp3> {
     setState(() {
       gouvernorats =
           List<String>.from(jsonData['gouvernorats'].map((g) => g['nom']));
-      delegations = {};
       for (var gouvernorat in jsonData['gouvernorats']) {
         delegations[gouvernorat['nom']] =
             List<String>.from(gouvernorat['délégations']);
@@ -372,27 +374,50 @@ class _MyApp3State extends State<MyApp3> {
               child: Text('Ouvrir la localisation'),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ListeScreen(
-                      selectedGouvernorat: selectedGouvernorat,
-                      selectedDelegation: selectedDelegation,
+            if (widget.isPharmacieDeGardeSelected ||
+                widget.isPharmacieDeJourSelected)
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ListeScreen(
+                        selectedGouvernorat: selectedGouvernorat,
+                        selectedDelegation: selectedDelegation,
+                      ),
                     ),
-                  ),
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Colors.black), // Couleur de fond noire
-                foregroundColor: MaterialStateProperty.all<Color>(
-                    Colors.white), // Couleur du texte blanc
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.black), // Couleur de fond noire
+                  foregroundColor: MaterialStateProperty.all<Color>(
+                      Colors.white), // Couleur du texte blanc
+                ),
+                child: Text('Accéder à la liste'),
               ),
-              child: Text('Accéder à la liste'),
-            ),
-            SizedBox(height: 20),
+            if (!widget.isPharmacieDeGardeSelected &&
+                !widget.isPharmacieDeJourSelected)
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ListeScreenn(
+                        selectedGouvernorat: selectedGouvernorat,
+                        selectedDelegation: selectedDelegation,
+                      ),
+                    ),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.black), // Couleur de fond noire
+                  foregroundColor: MaterialStateProperty.all<Color>(
+                      Colors.white), // Couleur du texte blanc
+                ),
+                child: Text('Accéder à la Liste'),
+              ),
           ],
         ),
       ),
@@ -569,43 +594,30 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     if (message.endsWith('.jpg') ||
         message.endsWith('.jpeg') ||
         message.endsWith('.png')) {
-      // Logique pour les images...
+      _addMessage(Message(isUserMessage: true, text: message));
+      _sendImage(message);
     } else {
-      // Logique pour les messages textuels...
+      _addMessage(Message(isUserMessage: true, text: message));
       final response = await http.post(
-        Uri.parse('https://260e-197-2-221-244.ngrok-free.app/chatbot'),
-        body: {'message': message},
+        Uri.parse('https://ca83-102-158-254-248.ngrok-free.app/upload_image'),
+        body: {'image': message},
       );
 
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
 
-        // Vérifier si la réponse contient les mots communs et les mots suivant "Dr" ou "Docteur"
-        if (jsonResponse is List) {
-          if (jsonResponse.isNotEmpty) {
-            String commonWordsText =
-                jsonResponse.join(', '); // Concaténer les mots communs
-            _addMessage(Message(
-              isUserMessage: false,
-              text: 'Mots communs : $commonWordsText',
-            ));
+        if (jsonResponse is String) {
+          // Split the jsonResponse into medication names and following words
+          List<String> splitResponse = jsonResponse.split('|');
+          String medicationNames = splitResponse[0];
+          String followingWords = splitResponse[1];
 
-            // Concaténer les mots communs avec les mots suivant "Dr" ou "Docteur"
-            String concatenatedWords =
-                '${jsonResponse.join(', ')} ${jsonResponse[0]} ${jsonResponse[1]}'; // Assumer que les deux mots suivants "Dr" ou "Docteur" sont dans les positions 0 et 1
-            _addMessage(Message(
-              isUserMessage: false,
-              text:
-                  'Mots communs et mots suivant "Dr" ou "Docteur" : $concatenatedWords',
-            ));
-          } else {
-            _addMessage(Message(
-              isUserMessage: false,
-              text: 'Aucun mot commun trouvé.',
-            ));
-          }
+          _addMessage(Message(
+            isUserMessage: false,
+            text:
+                'Médicaments : $medicationNames\nMots suivant "Dr" ou "Docteur" : $followingWords',
+          ));
         } else {
-          // La réponse n'est pas une liste valide
           _addMessage(Message(
             isUserMessage: false,
             text: 'Réponse invalide du serveur.',
@@ -635,7 +647,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
     // Envoyer l'image au serveur
     final response = await http.post(
-      Uri.parse('https://260e-197-2-221-244.ngrok-free.app/upload_image'),
+      Uri.parse('https://ca83-102-158-254-248.ngrok-free.app/upload_image'),
       body: {'image': base64Image},
     );
 
@@ -709,6 +721,51 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               },
             ),
           ),
+          if (_messages.isNotEmpty && !_messages.last.isUserMessage)
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 2,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.transfer_within_a_station,
+                          color: Colors.black), // Icône de transfert
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AuthGate()), // Remplacez AuthGate par la classe que vous souhaitez naviguer
+                        );
+                      },
+                    ),
+                    SizedBox(width: 10),
+                    IconButton(
+                      icon: Icon(Icons.transfer_within_a_station,
+                          color: Colors.black), // Icône de transfert
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AuthGate1()), // Remplacez AuthGate par la classe que vous souhaitez naviguer
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
@@ -728,10 +785,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   },
                 ),
                 IconButton(
-                  icon: Icon(Icons.image,
-                      color: Colors.black), // Nouvel IconButton pour la galerie
+                  icon: Icon(Icons.image, color: Colors.black),
                   onPressed: () {
-                    _openImagePicker(ImageSource.gallery); // Ouvre la galerie
+                    _openImagePicker(ImageSource.gallery);
                   },
                 ),
                 IconButton(
@@ -889,6 +945,138 @@ class _ListeScreenState extends State<ListeScreen> {
       await launch(telScheme);
     } else {
       throw 'Impossible de lancer l\'appel pour le numéro $phoneNumber';
+    }
+  }
+}
+
+class ListeScreenn extends StatefulWidget {
+  final String? selectedGouvernorat;
+  final String? selectedDelegation;
+
+  const ListeScreenn(
+      {Key? key, this.selectedGouvernorat, this.selectedDelegation})
+      : super(key: key);
+
+  @override
+  _ListeScreennState createState() => _ListeScreennState();
+}
+
+class _ListeScreennState extends State<ListeScreenn> {
+  late List<QueryDocumentSnapshot<Map<String, dynamic>>> data = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  @override
+  void didUpdateWidget(covariant ListeScreenn oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    getData();
+  }
+
+  Future<void> getData() async {
+    if (widget.selectedDelegation != null) {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance
+              .collection('${widget.selectedDelegation!}_nuit')
+              .get();
+      setState(() {
+        data = querySnapshot.docs;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Liste des pharmacies'),
+      ),
+      body: ListView.builder(
+        itemCount: data.length,
+        itemBuilder: (context, i) {
+          var pharmacieData = data[i].data()!;
+          String phoneNumber = pharmacieData['tel'] ?? '';
+
+          return Card(
+            child: ListTile(
+              title: Text(
+                "${pharmacieData['nomF'] ?? 'Nom inconnu'}",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 5),
+                  Text(
+                      "Adresse: ${pharmacieData['adresse'] ?? 'Adresse inconnue'}"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          _launchPhoneCall(phoneNumber);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                        ),
+                        child: Text(
+                          phoneNumber.isNotEmpty
+                              ? phoneNumber
+                              : 'Numéro non disponible',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          _openChatbot(context, pharmacieData['nomF'] ?? '');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                        ),
+                        child: Text(
+                          "Chatbot",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _openChatbot(BuildContext context, String nomPharmacie) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChatbotScreen(nomPharmacie),
+      ),
+    );
+  }
+
+  // Méthode pour lancer un appel téléphonique
+  void _launchPhoneCall(String phoneNumber) async {
+    if (phoneNumber.isNotEmpty) {
+      String telScheme = 'tel:$phoneNumber';
+      if (await canLaunch(telScheme)) {
+        await launch(telScheme);
+      } else {
+        throw 'Impossible de lancer l\'appel pour le numéro $phoneNumber';
+      }
+    } else {
+      // Affichez un message ou une alerte pour indiquer que le numéro n'est pas disponible.
+      print('Le numéro de téléphone n\'est pas disponible.');
     }
   }
 }

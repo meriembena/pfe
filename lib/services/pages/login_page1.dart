@@ -1,42 +1,30 @@
-import 'package:chat1/main.dart';
-import 'package:chat1/services/auth/auth_service.dart';
-import 'package:chat1/components/my_button.dart';
 import 'package:chat1/components/my_textfield.dart';
+import 'package:chat1/main.dart';
+import 'package:chat1/services/auth/auth_service1.dart';
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatelessWidget {
+class LoginPage1 extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
-  final TextEditingController _confirmPwController = TextEditingController();
   final void Function()? onTap;
-  RegisterPage({super.key, required this.onTap});
-  //register
-  void register(BuildContext context) {
-    final _auth = AuthService();
 
-    if (_pwController.text == _confirmPwController.text) {
-      try {
-        _auth.signUpWithEmailPassword(
-          _emailController.text,
-          _pwController.text,
-        );
-      } catch (e) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(e.toString()),
-          ),
-        );
-      }
-    } else {
-      {
-        showDialog(
-          context: context,
-          builder: (context) => const AlertDialog(
-            title: Text("Passwords don't match!"),
-          ),
-        );
-      }
+  LoginPage1({Key? key, required this.onTap}) : super(key: key);
+
+  // Login method
+  void login(BuildContext context) async {
+    final authService1 = AuthService1();
+    try {
+      await authService1.signInWithEmailPassword(
+        _emailController.text,
+        _pwController.text,
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
     }
   }
 
@@ -47,44 +35,37 @@ class RegisterPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            //logo
+            // Logo
             Icon(
               Icons.message,
               size: 60,
               color: Theme.of(context).colorScheme.primary,
             ),
             const SizedBox(height: 50),
-            //welcome back message
+            // Welcome back message
             Text(
-              "let's creta e an account",
+              "Welcome back, you've been missed!",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontSize: 16,
               ),
             ),
             const SizedBox(height: 25),
-            //email textfield
+            // Email textfield
             MyTextField(
               hintText: "Email",
               obscureText: false,
               controller: _emailController,
             ),
             const SizedBox(height: 25),
-            //pw textfield
+            // Password textfield
             MyTextField(
               hintText: "Password",
               obscureText: true,
               controller: _pwController,
             ),
             const SizedBox(height: 25),
-            //pw textfield
-            MyTextField(
-              hintText: "confirm Password",
-              obscureText: true,
-              controller: _confirmPwController,
-            ),
-            const SizedBox(height: 25),
-            //login button
+            // Login button
             ElevatedButton(
               onPressed: () {
                 // Naviguer vers la page d'authentification
@@ -93,25 +74,26 @@ class RegisterPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => MyApp1()),
                 );
               },
-              child: Text('Register'),
+              child: Text('Login'),
             ),
             const SizedBox(height: 25),
-            //register now
+            // Register now
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "already have an account?",
+                  "Not a member?",
                   style:
                       TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
                 GestureDetector(
                   onTap: onTap,
                   child: Text(
-                    "Login now",
+                    "Register now",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary),
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
               ],
