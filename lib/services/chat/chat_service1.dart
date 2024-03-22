@@ -15,18 +15,18 @@ class ChatService1 {
     });
   }
 
-  Future<void> sendMessage(String receiverID, message) async {
-    final String currentUserID = _auth.currentUser!.uid;
-    final String currentUserEmail = _auth.currentUser!.email!;
-    final Timestamp timestamp = Timestamp.now();
+  Future<void> sendMessage(String receiverID1, message1) async {
+    final String currentUserID1 = _auth.currentUser!.uid;
+    final String currentUserEmail1 = _auth.currentUser!.email!;
+    final Timestamp timestamp1 = Timestamp.now();
     Message1 newMessage = Message1(
-      senderID1: currentUserID,
-      senderEmail1: currentUserID,
-      receiverID1: receiverID,
-      message1: message,
-      timestamp1: timestamp,
+      senderID1: currentUserID1,
+      senderEmail1: currentUserID1,
+      receiverID1: receiverID1,
+      message1: message1,
+      timestamp1: timestamp1,
     );
-    List<String> ids = [currentUserID, receiverID];
+    List<String> ids = [currentUserID1, receiverID1];
     ids.sort();
     String chatRoomID = ids.join('_');
     await _firestore
