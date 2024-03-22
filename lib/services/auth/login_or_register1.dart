@@ -6,20 +6,20 @@ class LoginOrRegister1 extends StatefulWidget {
   const LoginOrRegister1({super.key});
 
   @override
-  State<LoginOrRegister1> createState() => _LoginOrRegisterState();
+  State<LoginOrRegister1> createState() => _LoginOrRegister1State();
 }
 
-class _LoginOrRegisterState extends State<LoginOrRegister1> {
-  bool showLoginPage = true;
+class _LoginOrRegister1State extends State<LoginOrRegister1> {
+  bool showLoginPage1 = true;
   void togglePages1() {
     setState(() {
-      showLoginPage = !showLoginPage;
+      showLoginPage1 = !showLoginPage1;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (showLoginPage) {
+    if (showLoginPage1) {
       return LoginPage1(
         onTap: togglePages1,
       );

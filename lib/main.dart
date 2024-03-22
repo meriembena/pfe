@@ -599,7 +599,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     } else {
       _addMessage(Message(isUserMessage: true, text: message));
       final response = await http.post(
-        Uri.parse('https://ca83-102-158-254-248.ngrok-free.app/upload_image'),
+        Uri.parse('https://9be0-102-158-254-248.ngrok-free.app/upload_image'),
         body: {'image': message},
       );
 
@@ -647,7 +647,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
     // Envoyer l'image au serveur
     final response = await http.post(
-      Uri.parse('https://ca83-102-158-254-248.ngrok-free.app/upload_image'),
+      Uri.parse('https://9be0-102-158-254-248.ngrok-free.app/upload_image'),
       body: {'image': base64Image},
     );
 
@@ -745,7 +745,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  AuthGate()), // Remplacez AuthGate par la classe que vous souhaitez naviguer
+                                  AuthGate1()), // Remplacez AuthGate par la classe que vous souhaitez naviguer
                         );
                       },
                     ),

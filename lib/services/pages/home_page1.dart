@@ -2,6 +2,7 @@ import 'package:chat1/components/my_drawer1.dart';
 import 'package:chat1/services/auth/auth_service1.dart';
 
 import 'package:chat1/services/chat/chat_service1.dart';
+import 'package:chat1/services/pages/chat_page1.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/user_tile.dart';
@@ -9,8 +10,8 @@ import 'chat_page.dart';
 
 class HomePage1 extends StatelessWidget {
   HomePage1({super.key});
-  final ChatService1 _chatService = ChatService1();
-  final AuthService1 _authService = AuthService1();
+  final ChatService1 _chatService1 = ChatService1();
+  final AuthService1 _authService1 = AuthService1();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class HomePage1 extends StatelessWidget {
 
   Widget _buildUserList() {
     return StreamBuilder(
-      stream: _chatService.getUsersStream(),
+      stream: _chatService1.getUsersStream(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Text("error");
@@ -48,16 +49,16 @@ class HomePage1 extends StatelessWidget {
 
   Widget _buildUserListItem(
       Map<String, dynamic> userData, BuildContext context) {
-    if (userData["email"] != _authService.getCurrentUser()!.email) {
+    if (userData["email"] != _authService1.getCurrentUser()!.email) {
       return UserTile(
         text: userData["email"],
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ChatPage(
-                receiverEmail: userData["email"],
-                receiverID: userData["uid"],
+              builder: (context) => ChatPage1(
+                receiverEmail1: userData["email"],
+                receiverID1: userData["uid"],
               ),
             ),
           );

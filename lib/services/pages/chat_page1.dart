@@ -9,9 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ChatPage1 extends StatefulWidget {
-  final String receiverEmail;
-  final String receiverID;
-  ChatPage1({super.key, required this.receiverEmail, required this.receiverID});
+  final String receiverEmail1;
+  final String receiverID1;
+  ChatPage1(
+      {super.key, required this.receiverEmail1, required this.receiverID1});
 
   @override
   State<ChatPage1> createState() => _ChatPage1State();
@@ -20,8 +21,8 @@ class ChatPage1 extends StatefulWidget {
 class _ChatPage1State extends State<ChatPage1> {
   final TextEditingController _messageController = TextEditingController();
 
-  final ChatService1 _chatService = ChatService1();
-  final AuthService1 _authService = AuthService1();
+  final ChatService1 _chatService1 = ChatService1();
+  final AuthService1 _authService1 = AuthService1();
   FocusNode myFocusNode = FocusNode();
   @override
   void initState() {
@@ -59,8 +60,8 @@ class _ChatPage1State extends State<ChatPage1> {
 
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
-      await _chatService.sendMessage(
-          widget.receiverID, _messageController.text);
+      await _chatService1.sendMessage(
+          widget.receiverID1, _messageController.text);
 
       _messageController.clear();
     }
@@ -72,7 +73,7 @@ class _ChatPage1State extends State<ChatPage1> {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
-          title: Text(widget.receiverEmail),
+          title: Text(widget.receiverEmail1),
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.grey,
           elevation: 0,
@@ -88,9 +89,9 @@ class _ChatPage1State extends State<ChatPage1> {
   }
 
   Widget _buildMessageList() {
-    String senderID = _authService.getCurrentUser()!.uid;
+    String senderID1 = _authService1.getCurrentUser()!.uid;
     return StreamBuilder(
-        stream: _chatService.getMessages(widget.receiverID, senderID),
+        stream: _chatService1.getMessages(widget.receiverID1, senderID1),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text("Error");
@@ -109,7 +110,8 @@ class _ChatPage1State extends State<ChatPage1> {
 
   Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    bool isCurrentUser = data['senderID'] == _authService.getCurrentUser()!.uid;
+    bool isCurrentUser =
+        data['senderID1'] == _authService1.getCurrentUser()!.uid;
     var alignment =
         isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
     return Container(
