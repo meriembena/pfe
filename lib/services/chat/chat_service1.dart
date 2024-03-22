@@ -1,4 +1,4 @@
-import 'package:chat1/models/message.dart';
+import 'package:chat1/models/message1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -19,12 +19,12 @@ class ChatService1 {
     final String currentUserID = _auth.currentUser!.uid;
     final String currentUserEmail = _auth.currentUser!.email!;
     final Timestamp timestamp = Timestamp.now();
-    Message newMessage = Message(
-      senderID: currentUserID,
-      senderEmail: currentUserID,
-      receiverID: receiverID,
-      message: message,
-      timestamp: timestamp,
+    Message1 newMessage = Message1(
+      senderID1: currentUserID,
+      senderEmail1: currentUserID,
+      receiverID1: receiverID,
+      message1: message,
+      timestamp1: timestamp,
     );
     List<String> ids = [currentUserID, receiverID];
     ids.sort();
