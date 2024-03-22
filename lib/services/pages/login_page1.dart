@@ -1,7 +1,10 @@
+import 'package:chat1/components/my_button.dart';
 import 'package:chat1/components/my_textfield.dart';
 import 'package:chat1/main.dart';
 import 'package:chat1/services/auth/auth_service1.dart';
 import 'package:flutter/material.dart';
+
+import '../auth/auth_service.dart';
 
 class LoginPage1 extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -12,9 +15,9 @@ class LoginPage1 extends StatelessWidget {
 
   // Login method
   void login(BuildContext context) async {
-    final authService1 = AuthService1();
+    final authService = AuthService1();
     try {
-      await authService1.signInWithEmailPassword(
+      await authService.signInWithEmailPassword(
         _emailController.text,
         _pwController.text,
       );

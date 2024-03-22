@@ -1,24 +1,23 @@
 import 'package:chat1/main.dart';
 import 'package:chat1/services/auth/auth_service1.dart';
-
 import 'package:chat1/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage1 extends StatelessWidget {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _pwController = TextEditingController();
-  final TextEditingController _confirmPwController = TextEditingController();
+  final TextEditingController _emailController1 = TextEditingController();
+  final TextEditingController _pwController1 = TextEditingController();
+  final TextEditingController _confirmPwController1 = TextEditingController();
   final void Function()? onTap;
   RegisterPage1({super.key, required this.onTap});
   //register
   void register(BuildContext context) {
     final _auth = AuthService1();
 
-    if (_pwController.text == _confirmPwController.text) {
+    if (_pwController1.text == _confirmPwController1.text) {
       try {
         _auth.signUpWithEmailPassword(
-          _emailController.text,
-          _pwController.text,
+          _emailController1.text,
+          _pwController1.text,
         );
       } catch (e) {
         showDialog(
@@ -67,21 +66,21 @@ class RegisterPage1 extends StatelessWidget {
             MyTextField(
               hintText: "Email",
               obscureText: false,
-              controller: _emailController,
+              controller: _emailController1,
             ),
             const SizedBox(height: 25),
             //pw textfield
             MyTextField(
               hintText: "Password",
               obscureText: true,
-              controller: _pwController,
+              controller: _pwController1,
             ),
             const SizedBox(height: 25),
             //pw textfield
             MyTextField(
               hintText: "confirm Password",
               obscureText: true,
-              controller: _confirmPwController,
+              controller: _confirmPwController1,
             ),
             const SizedBox(height: 25),
             //login button

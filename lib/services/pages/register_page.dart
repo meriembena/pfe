@@ -1,23 +1,24 @@
 import 'package:chat1/main.dart';
 import 'package:chat1/services/auth/auth_service.dart';
+import 'package:chat1/components/my_button.dart';
 import 'package:chat1/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
-  final TextEditingController _emailController1 = TextEditingController();
-  final TextEditingController _pwController1 = TextEditingController();
-  final TextEditingController _confirmPwController1 = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _pwController = TextEditingController();
+  final TextEditingController _confirmPwController = TextEditingController();
   final void Function()? onTap;
   RegisterPage({super.key, required this.onTap});
   //register
   void register(BuildContext context) {
     final _auth = AuthService();
 
-    if (_pwController1.text == _confirmPwController1.text) {
+    if (_pwController.text == _confirmPwController.text) {
       try {
         _auth.signUpWithEmailPassword(
-          _emailController1.text,
-          _pwController1.text,
+          _emailController.text,
+          _pwController.text,
         );
       } catch (e) {
         showDialog(
@@ -66,33 +67,28 @@ class RegisterPage extends StatelessWidget {
             MyTextField(
               hintText: "Email",
               obscureText: false,
-              controller: _emailController1,
+              controller: _emailController,
             ),
             const SizedBox(height: 25),
             //pw textfield
             MyTextField(
               hintText: "Password",
               obscureText: true,
-              controller: _pwController1,
+              controller: _pwController,
             ),
             const SizedBox(height: 25),
             //pw textfield
             MyTextField(
               hintText: "confirm Password",
               obscureText: true,
-              controller: _confirmPwController1,
+              controller: _confirmPwController,
             ),
             const SizedBox(height: 25),
             //login button
-            ElevatedButton(
-              onPressed: () {
-                // Naviguer vers la page d'authentification
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyApp1()),
-                );
-              },
-              child: Text('Register'),
+
+            MyButton(
+              text: "Register",
+              onTap: () => register(context),
             ),
             const SizedBox(height: 25),
             //register now

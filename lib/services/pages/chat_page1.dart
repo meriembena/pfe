@@ -1,16 +1,18 @@
 import 'package:chat1/components/chat_bubble.dart';
 import 'package:chat1/components/my_textfield.dart';
+import 'package:chat1/services/auth/auth_service.dart';
 import 'package:chat1/services/auth/auth_service1.dart';
+import 'package:chat1/services/chat/chat_service.dart';
 import 'package:chat1/services/chat/chat_service1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ChatPage1 extends StatefulWidget {
-  final String receiverEmail1;
-  final String receiverID1;
+  final String receiverEmaili;
+  final String receiverIDi;
   ChatPage1(
-      {super.key, required this.receiverEmail1, required this.receiverID1});
+      {super.key, required this.receiverEmaili, required this.receiverIDi});
 
   @override
   State<ChatPage1> createState() => _ChatPage1State();
@@ -19,8 +21,8 @@ class ChatPage1 extends StatefulWidget {
 class _ChatPage1State extends State<ChatPage1> {
   final TextEditingController _messageController = TextEditingController();
 
-  final ChatService1 _chatService1 = ChatService1();
-  final AuthService1 _authService1 = AuthService1();
+  final ChatService1 _chatService = ChatService1();
+  final AuthService1 _authService = AuthService1();
   FocusNode myFocusNode = FocusNode();
   @override
   void initState() {
@@ -58,8 +60,8 @@ class _ChatPage1State extends State<ChatPage1> {
 
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
-      await _chatService1.sendMessage(
-          widget.receiverID1, _messageController.text);
+      await _chatService.sendMessage(
+          widget.receiverIDi, _messageController.text);
 
       _messageController.clear();
     }
@@ -71,7 +73,7 @@ class _ChatPage1State extends State<ChatPage1> {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
-          title: Text(widget.receiverEmail1),
+          title: Text(widget.receiverEmaili),
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.grey,
           elevation: 0,
@@ -87,9 +89,9 @@ class _ChatPage1State extends State<ChatPage1> {
   }
 
   Widget _buildMessageList() {
-    String senderID1 = _authService1.getCurrentUser()!.uid;
+    String senderIDi = _authService.getCurrentUser()!.uid;
     return StreamBuilder(
-        stream: _chatService1.getMessages(widget.receiverID1, senderID1),
+        stream: _chatService.getMessages(widget.receiverIDi, senderIDi),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text("Error");
@@ -108,8 +110,7 @@ class _ChatPage1State extends State<ChatPage1> {
 
   Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    bool isCurrentUser =
-        data['senderID1'] == _authService1.getCurrentUser()!.uid;
+    bool isCurrentUser = data['senderID'] == _authService.getCurrentUser()!.uid;
     var alignment =
         isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
     return Container(
@@ -119,7 +120,7 @@ class _ChatPage1State extends State<ChatPage1> {
             isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           ChatBubble(
-            message: data["message1"],
+            message: data["message"],
             isCurrentUser: isCurrentUser,
           )
         ],

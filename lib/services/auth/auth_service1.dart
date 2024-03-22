@@ -8,16 +8,15 @@ class AuthService1 {
     return _auth.currentUser;
   }
 
-  Future<UserCredential> signInWithEmailPassword(
-      String email1, password1) async {
+  Future<UserCredential> signInWithEmailPassword(String email, password) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: email1,
-        password: password1,
+        email: email,
+        password: password,
       );
       _firestore.collection("Users").doc(userCredential.user!.uid).set({
-        'uid1': userCredential.user!.uid,
-        'email1': email1,
+        'uid': userCredential.user!.uid,
+        'email': email,
       });
       return userCredential;
     } on FirebaseAuthException catch (e) {
@@ -25,17 +24,16 @@ class AuthService1 {
     }
   }
 
-  Future<UserCredential> signUpWithEmailPassword(
-      String email1, password1) async {
+  Future<UserCredential> signUpWithEmailPassword(String email, password) async {
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
-        email: email1,
-        password: password1,
+        email: email,
+        password: password,
       );
       _firestore.collection("Users").doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
-        'email': email1,
+        'email': email,
       });
       return userCredential;
     } on FirebaseAuthException catch (e) {

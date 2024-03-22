@@ -1,3 +1,6 @@
+import 'package:chat1/components/chat_bubble.dart';
+import 'package:chat1/components/my_textfield.dart';
+import 'package:chat1/models/message1.dart';
 import 'package:chat1/services/auth/auth_gate.dart';
 import 'package:chat1/services/auth/auth_gate1.dart';
 import 'package:chat1/services/auth/login_or_register1.dart';
@@ -737,18 +740,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    IconButton(
-                      icon: Icon(Icons.transfer_within_a_station,
-                          color: Colors.black), // Icône de transfert
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  AuthGate1()), // Remplacez AuthGate par la classe que vous souhaitez naviguer
-                        );
-                      },
-                    ),
                     SizedBox(width: 10),
                     IconButton(
                       icon: Icon(Icons.transfer_within_a_station,
