@@ -36,8 +36,8 @@ class ChatService1 {
         .add(newMessage.toMap());
   }
 
-  Stream<QuerySnapshot> getMessages(String userID, otherUserID) {
-    List<String> ids = [userID, otherUserID];
+  Stream<QuerySnapshot> getMessages(String userID1, otherUserID1) {
+    List<String> ids = [userID1, otherUserID1];
     ids.sort();
     String chatRoomID = ids.join('_');
     return _firestore
