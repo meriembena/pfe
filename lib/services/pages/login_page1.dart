@@ -1,9 +1,8 @@
-import 'package:chat1/components/my_button.dart';
-import 'package:chat1/components/my_textfield.dart';
+import 'package:chat1/components/my_button1.dart';
+import 'package:chat1/components/my_textfield1.dart';
 import 'package:chat1/main.dart';
 import 'package:chat1/services/auth/auth_service1.dart';
 import 'package:flutter/material.dart';
-
 import '../auth/auth_service.dart';
 
 class LoginPage1 extends StatelessWidget {
@@ -55,17 +54,17 @@ class LoginPage1 extends StatelessWidget {
             ),
             const SizedBox(height: 25),
             // Email textfield
-            MyTextField(
-              hintText: "Email",
-              obscureText: false,
-              controller: _emailController,
+            MyTextField1(
+              hintTexti: "Email",
+              obscureTexti: false,
+              controlleri: _emailController,
             ),
             const SizedBox(height: 25),
             // Password textfield
-            MyTextField(
-              hintText: "Password",
-              obscureText: true,
-              controller: _pwController,
+            MyTextField1(
+              hintTexti: "Password",
+              obscureTexti: true,
+              controlleri: _pwController,
             ),
             const SizedBox(height: 25),
             // Login button

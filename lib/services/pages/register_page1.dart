@@ -1,6 +1,7 @@
+import 'package:chat1/components/my_button1.dart';
+import 'package:chat1/components/my_textfield1.dart';
 import 'package:chat1/main.dart';
 import 'package:chat1/services/auth/auth_service1.dart';
-import 'package:chat1/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage1 extends StatelessWidget {
@@ -63,24 +64,24 @@ class RegisterPage1 extends StatelessWidget {
             ),
             const SizedBox(height: 25),
             //email textfield
-            MyTextField(
-              hintText: "Email",
-              obscureText: false,
-              controller: _emailController1,
+            MyTextField1(
+              hintTexti: "Email",
+              obscureTexti: false,
+              controlleri: _emailController1,
             ),
             const SizedBox(height: 25),
             //pw textfield
-            MyTextField(
-              hintText: "Password",
-              obscureText: true,
-              controller: _pwController1,
+            MyTextField1(
+              hintTexti: "Password",
+              obscureTexti: true,
+              controlleri: _pwController1,
             ),
             const SizedBox(height: 25),
             //pw textfield
-            MyTextField(
-              hintText: "confirm Password",
-              obscureText: true,
-              controller: _confirmPwController1,
+            MyTextField1(
+              hintTexti: "confirm Password",
+              obscureTexti: true,
+              controlleri: _confirmPwController1,
             ),
             const SizedBox(height: 25),
             //login button
@@ -92,7 +93,7 @@ class RegisterPage1 extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => MyApp1()),
                 );
               },
-              child: Text('Register'),
+              child: Text('Login'),
             ),
             const SizedBox(height: 25),
             //register now

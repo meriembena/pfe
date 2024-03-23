@@ -83,8 +83,7 @@ class Racine extends StatelessWidget {
                     // Naviguer vers la page d'authentification
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => LoginOrRegister1()),
+                      MaterialPageRoute(builder: (context) => AuthGate1()),
                     );
                   },
                   child: Text('Je suis un chercheur'),

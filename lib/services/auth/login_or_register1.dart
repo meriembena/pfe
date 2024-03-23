@@ -1,6 +1,4 @@
-import 'package:chat1/services/pages/login_page.dart';
 import 'package:chat1/services/pages/login_page1.dart';
-import 'package:chat1/services/pages/register_page.dart';
 import 'package:chat1/services/pages/register_page1.dart';
 import 'package:flutter/material.dart';
 

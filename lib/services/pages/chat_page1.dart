@@ -1,8 +1,8 @@
-import 'package:chat1/components/chat_bubble.dart';
-import 'package:chat1/components/my_textfield.dart';
-import 'package:chat1/services/auth/auth_service.dart';
+import 'package:chat1/components/chat_bubble1.dart';
+import 'package:chat1/components/my_textfield1.dart';
+
 import 'package:chat1/services/auth/auth_service1.dart';
-import 'package:chat1/services/chat/chat_service.dart';
+
 import 'package:chat1/services/chat/chat_service1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -119,9 +119,9 @@ class _ChatPage1State extends State<ChatPage1> {
         crossAxisAlignment:
             isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          ChatBubble(
-            message: data["message"],
-            isCurrentUser: isCurrentUser,
+          ChatBubble1(
+            messagei: data["message"],
+            isCurrentUseri: isCurrentUser,
           )
         ],
       ),
@@ -134,10 +134,10 @@ class _ChatPage1State extends State<ChatPage1> {
       child: Row(
         children: [
           Expanded(
-            child: MyTextField(
-              controller: _messageController,
-              hintText: "Type a message",
-              obscureText: false,
+            child: MyTextField1(
+              controlleri: _messageController,
+              hintTexti: "Type a message",
+              obscureTexti: false,
               focusNode: myFocusNode,
             ),
           ),

@@ -1,9 +1,9 @@
 import 'package:chat1/components/my_drawer1.dart';
+import 'package:chat1/components/user_tile1.dart';
 import 'package:chat1/services/auth/auth_service1.dart';
 import 'package:chat1/services/chat/chat_service1.dart';
 import 'package:chat1/services/pages/chat_page1.dart';
 import 'package:flutter/material.dart';
-import '../../components/user_tile.dart';
 import 'chat_page.dart';
 
 class HomePage1 extends StatelessWidget {
@@ -48,8 +48,8 @@ class HomePage1 extends StatelessWidget {
   Widget _buildUserListItem(
       Map<String, dynamic> userData, BuildContext context) {
     if (userData["email"] != _authService.getCurrentUser()!.email) {
-      return UserTile(
-        text: userData["email"],
+      return UserTile1(
+        texti: userData["email"],
         onTap: () {
           Navigator.push(
             context,
