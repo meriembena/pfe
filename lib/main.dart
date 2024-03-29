@@ -1,17 +1,11 @@
-import 'package:chat1/components/chat_bubble.dart';
-import 'package:chat1/components/my_textfield.dart';
-import 'package:chat1/models/message1.dart';
 import 'package:chat1/services/auth/auth_gate.dart';
 import 'package:chat1/services/auth/auth_gate1.dart';
-import 'package:chat1/services/auth/login_or_register1.dart';
-import 'package:chat1/services/pages/login_page1.dart';
 import 'package:chat1/themes/theme_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:convert';
@@ -83,7 +77,7 @@ class Racine extends StatelessWidget {
                     // Naviguer vers la page d'authentification
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AuthGate1()),
+                      MaterialPageRoute(builder: (context) => MyApp1()),
                     );
                   },
                   child: Text('Je suis un chercheur'),
@@ -601,7 +595,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     } else {
       _addMessage(Message(isUserMessage: true, text: message));
       final response = await http.post(
-        Uri.parse('https://9be0-102-158-254-248.ngrok-free.app/upload_image'),
+        Uri.parse('https://4abb-197-3-98-27.ngrok-free.app/upload_image'),
         body: {'image': message},
       );
 
@@ -649,7 +643,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
     // Envoyer l'image au serveur
     final response = await http.post(
-      Uri.parse('https://9be0-102-158-254-248.ngrok-free.app/upload_image'),
+      Uri.parse('https://4abb-197-3-98-27.ngrok-free.app/upload_image'),
       body: {'image': base64Image},
     );
 
@@ -740,18 +734,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(width: 10),
-                    IconButton(
-                      icon: Icon(Icons.transfer_within_a_station,
-                          color: Colors.black), // Icône de transfert
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  AuthGate1()), // Remplacez AuthGate par la classe que vous souhaitez naviguer
-                        );
-                      },
-                    ),
                   ],
                 ),
               ),

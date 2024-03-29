@@ -48,6 +48,7 @@ class RegisterPage extends StatelessWidget {
         child: Column(
           children: [
             //logo
+            const SizedBox(height: 100),
             Icon(
               Icons.message,
               size: 60,

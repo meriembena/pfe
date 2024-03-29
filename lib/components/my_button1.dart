@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class MyButton1 extends StatelessWidget {
   final void Function()? onTap;
-  final String text;
+  final String texti;
   const MyButton1({
     super.key,
-    required this.text,
+    required this.texti,
     required this.onTap,
   });
 
@@ -21,7 +21,7 @@ class MyButton1 extends StatelessWidget {
         padding: EdgeInsets.all(25),
         margin: const EdgeInsets.symmetric(horizontal: 25),
         child: Center(
-          child: Text(text),
+          child: Text(texti),
         ),
       ),
     );
