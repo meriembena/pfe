@@ -1,8 +1,6 @@
-{
+"fcm": {
   "project_info": {
-    "project_number": "370590853795",
-    "project_id": "chatapptuto-b1f04",
-    "storage_bucket": "chatapptuto-b1f04.appspot.com"
+    "default_notification_channel_id": "2"
   },
   "client": [
     {
@@ -15,15 +13,21 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAr_N0dObHNUWRXDLhpgpDaw4lS3N3EiMk"
+          "current_key": "AAAAVkjvqqM:APA91bFuDiTDXah8own_EpT-piDGc__Mk3xrpRRw7aJ-ggVod6YDW3DmPgoVOElxvuOx2f1JP93IPtramu5-bZJLO251f7kMl8F2HN4RggfMW1aNHzCp-Yus6MFcwWzBEUHNPCRNjf0B"
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 1
+        },
         "appinvite_service": {
           "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2,
+          "flags": 2
         }
       }
     }
-  ],
-  "configuration_version": "1"
+  ]
 }
