@@ -1,32 +1,45 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:chat1/views/discussions.dart';
-import 'package:chat1/views/Catégories.dart';
+import 'package:Saydaliati/views/discussions.dart';
+import 'package:Saydaliati/models/UserModel.dart';
+import 'package:Saydaliati/views/Categories.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+//initialiser d'une instance pour accéder aux fonctionalités de firebase
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  //initialiser d'une instance pour accéder aux fonctionalités d'authentification de firebase
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
+//getCurrentUser() est conçue pour récupérer l'utilisateur
+//actuellement connecté dans notre application utilisant Firebase Auth.
   User? getCurrentUser() {
     return _auth.currentUser;
   }
 
-  // Adding method to get current user's email
+  // Ajout d'une méthode pour obtenir l'adresse email de l'utilisateur actuel.
   String? currentUserEmail() {
     return _auth.currentUser?.email;
   }
 
-  Future<UserCredential> signInWithEmailPassword(String email, password) async {
+  Future<UserCredential> signInWithEmailPassword(
+      String email, String password) async {
     try {
+//Cette méthode renvoie un objet UserCredential qui contient les informations de l'utilisateur authentifié.
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      _firestore.collection("Users").doc(userCredential.user!.uid).set({
-        'uid': userCredential.user!.uid,
-        'email': email,
-      }, SetOptions(merge: true));
+
+      // Supprimez ou commentez cette partie pour éviter la mise à jour de Firestore
+      /*
+    _firestore.collection("Users").doc(userCredential.user!.uid).set({
+      'uid': userCredential.user!.uid,
+      'email': email,
+    }, SetOptions(merge: true));
+    */
+
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
@@ -38,21 +51,24 @@ class AuthService {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
-      await _firestore.collection("Users").doc(userCredential.user!.uid).set({
-        'uid': userCredential.user!.uid,
-        'email': email,
-        'name': name,
-        'role': role,
-      });
-      // Vérifier le rôle avant de décider où rediriger l'utilisateur
+      UserModel newUser = UserModel(
+        uid: userCredential.user!.uid,
+        email: email,
+        name: name,
+        role: role,
+      );
+      await _firestore
+          .collection("Users")
+          .doc(userCredential.user!.uid)
+          .set(newUser.toMap());
+
+      // Redirection en fonction du rôle
       if (role == 'chercheur') {
-        // Si le rôle est chercheur, rediriger vers MyApp1
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Categories()),
+          MaterialPageRoute(builder: (context) => categories()),
         );
       } else {
-        // Si le rôle est autre, rediriger vers HomePage ou une autre page appropriée
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => discussions()),
@@ -65,8 +81,10 @@ class AuthService {
   }
 
   Future<void> changePassword(String newPassword) async {
+//récuperer l'utilisateur actuellement connecté
     User? currentUser = _auth.currentUser;
     try {
+      //mettre à jour le mot de passe de l'utilisateur
       await currentUser?.updatePassword(newPassword);
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);

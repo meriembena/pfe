@@ -1,19 +1,23 @@
-import 'package:chat1/views/Catégories.dart';
+import 'package:Saydaliati/views/Categories.dart';
 import 'package:flutter/material.dart';
+import 'package:Saydaliati/views/Widgets/my_button.dart';
+import 'package:Saydaliati/views/Widgets/my_textfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:chat1/views/Widgets/my_button.dart';
-import 'package:chat1/views/Widgets/my_textfield.dart';
-import 'package:chat1/Controller/auth_service.dart';
+import 'package:Saydaliati/Controller/auth_service.dart';
 
+// cette classe est dynamique change d'etat
 class LoginPage extends StatefulWidget {
   final String role;
   final void Function()? onTap;
-
+// maintenir l'état des widgets et d'optimiser les performances lors de modifications
   LoginPage({Key? key, required this.role, required this.onTap})
       : super(key: key);
 
   @override
+  //construire le widget LoginPageState, il appelle
+//createState(). Cette méthode retourne une instance de _LoginPageState,
+//qui contient tout l'état nécessaire
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -22,62 +26,62 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _pwController = TextEditingController();
   final AuthService authService = AuthService();
 
+  @override
+  //C'est l'endroit où vous pouvez insérer le code d'initialisation qui doit s'exécuter une seule fois
+  void initState() {
+    super.initState();
+  }
+
   void login(BuildContext context) async {
-    String email = _emailController.text.trim();
-    String password = _pwController.text.trim();
-
-    if (email.isEmpty || password.isEmpty) {
-      showErrorDialog(context, "Veuillez remplir tous les champs.");
-      return;
-    }
-
     try {
-      UserCredential userCredential =
-          await authService.signInWithEmailPassword(email, password);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Categories()));
-    } on FirebaseAuthException catch (e) {
-      String errorMessage = _handleFirebaseAuthException(e);
-      showErrorDialog(context, errorMessage);
+      UserCredential userCredential = await authService.signInWithEmailPassword(
+        _emailController.text,
+        _pwController.text,
+      );
+
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userCredential.user!.uid)
+          .get()
+          .then((doc) {
+        if (doc.exists) {
+          Map<String, dynamic> userData = doc.data() as Map<String, dynamic>;
+          if (userData['role'] == widget.role && widget.role == 'chercheur') {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => categories()));
+          } else {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text("Accès refusé pour le rôle non autorisé."),
+              ),
+            );
+          }
+        }
+      });
     } catch (e) {
-      showErrorDialog(
-          context, "Une erreur inattendue est survenue : ${e.toString()}");
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Erreur de connexion: ${e.toString()}"),
+        ),
+      );
     }
-  }
-
-  String _handleFirebaseAuthException(FirebaseAuthException e) {
-    switch (e.code) {
-      case 'invalid-email':
-        return "L'email fourni est incorrect.";
-      case 'user-not-found':
-      case 'wrong-password':
-        return "L'email ou le mot de passe est incorrect.";
-      default:
-        return "Une erreur est survenue. Veuillez réessayer plus tard.";
-    }
-  }
-
-  void showErrorDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text("Erreur de connexion"),
-        content: Text(message),
-      ),
-    );
   }
 
   @override
+  // build est responsable de la création et la mis à jour de l'interface utilisateur
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
+// Scaffold widget est prédéfini par Flutter.
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       body: GestureDetector(
         onTap: () {
+          // Permet de fermer le clavier lorsque l'utilisateur appuie n'importe où en dehors des champs de texte
           FocusScope.of(context).unfocus();
         },
+        //permet de faire défiler un seul widget enfant qui pourrait dépasser les dimensions de l'écran
         child: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -110,7 +114,6 @@ class _LoginPageState extends State<LoginPage> {
                                 width: screenWidth * 0.15,
                                 height: screenHeight * 0.15,
                               ),
-                              SizedBox(height: 20),
                               Container(
                                 width: screenWidth * 0.8,
                                 height: screenHeight * 0.07,
@@ -135,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                               Container(
                                 width: screenWidth * 0.8,
                                 height: screenHeight * 0.07,
-                                margin: EdgeInsets.only(bottom: 20.0),
+                                margin: EdgeInsets.only(bottom: 10.0),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30.0),
@@ -153,17 +156,37 @@ class _LoginPageState extends State<LoginPage> {
                                   controller: _pwController,
                                 ),
                               ),
+                              SizedBox(height: 20),
                               MyButton(
                                 text: "Connecter",
                                 onTap: () => login(context),
                               ),
-                              GestureDetector(
-                                onTap: widget.onTap,
-                                child: Text(
-                                  "Inscrivez-vous maintenant",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
+                              Padding(
+                                padding: EdgeInsets.only(top: 20.0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 10.0),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            "Pas un membre ?",
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                          GestureDetector(
+                                            onTap: widget.onTap,
+                                            child: Text(
+                                              "Inscrivez-vous maintenant",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ],
@@ -179,12 +202,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _pwController.dispose();
-    super.dispose();
   }
 }

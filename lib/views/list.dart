@@ -1,28 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:chat1/views/chatbot.dart';
+import 'package:Saydaliati/views/chatbot.dart';
 
+// cette classe est dynamique change d'etat
 class ListeScreen extends StatefulWidget {
   final String? selectedGouvernorat;
   final String? selectedDelegation;
   final bool isNight;
-
+// maintenir l'état des widgets et d'optimiser les performances lors de modifications
   const ListeScreen({
     Key? key,
     this.selectedGouvernorat,
     this.selectedDelegation,
     this.isNight = false,
   }) : super(key: key);
-
+  //construire le widget ListeScreenState, il appelle
+//createState(). Cette méthode retourne une instance de _ListeScreenState,
+//qui contient tout l'état nécessaire
   @override
   State<ListeScreen> createState() => _ListeScreenState();
 }
 
 class _ListeScreenState extends State<ListeScreen> {
+  //initialise une liste vide "pharmacies"
   late List<Map<String, dynamic>> pharmacies = [];
 
   @override
+  //C'est l'endroit où vous pouvez insérer le code d'initialisation qui doit s'exécuter une seule fois
   void initState() {
     super.initState();
     getData();
@@ -39,13 +44,17 @@ class _ListeScreenState extends State<ListeScreen> {
 
       if (snapshot.exists) {
         Map<String, dynamic>? data = snapshot.data();
+        //Récupère les données spécifiques au gouvernorat sélectionné.
         var gouvernoratData =
             data?[widget.selectedGouvernorat] as Map<String, dynamic>?;
+        //Récupère les données spécifiques à la délégation sélectionnée à partir des données du gouvernorat.
         var delegationData = gouvernoratData?[widget.selectedDelegation]
             as Map<String, dynamic>?;
         if (delegationData != null) {
+          //parcourir chaque entrer de délégationData
           delegationData.forEach((key, value) {
             if (value is Map<String, dynamic>) {
+              // Ajoute les informations de chaque pharmacie dans la liste pharmacies.
               pharmacies.add({
                 'nomF': value['nomF'] ?? 'Nom inconnu',
                 'adresse': value['adresse'] ?? 'Adresse inconnue',
@@ -53,7 +62,7 @@ class _ListeScreenState extends State<ListeScreen> {
               });
             }
           });
-
+//mettre à jour l'état de l'interface utilisateur
           setState(() {
             pharmacies = pharmacies;
           });
@@ -63,11 +72,13 @@ class _ListeScreenState extends State<ListeScreen> {
   }
 
   @override
+  // build est responsable de la création et la mis à jour de l'interface utilisateur
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
+    // Scaffold widget est prédéfini par Flutter.
     return Scaffold(
+      //le widget Stack permet de superposer plusieurs widgets les uns sur les autres.
       body: Stack(
         children: [
           Positioned.fill(
@@ -222,8 +233,11 @@ class _ListeScreenState extends State<ListeScreen> {
 
   void _launchPhoneCall(String phoneNumber) async {
     if (phoneNumber.isNotEmpty) {
+      //Crée une nouvelle chaîne de caractères telScheme pour un appel téléphonique
       String telScheme = 'tel:$phoneNumber';
+      //vérifier le dispositif est capable de passer un appel téléphonique avec ce schéma URI
       if (await canLaunch(telScheme)) {
+        //passer l'appel
         await launch(telScheme);
       } else {
         throw 'Impossible de lancer l\'appel pour le numéro $phoneNumber';

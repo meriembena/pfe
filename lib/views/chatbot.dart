@@ -4,33 +4,28 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:chat1/models/message.dart';
-import 'package:chat1/views/discussions.dart';
+import 'package:Saydaliati/models/message.dart';
+import 'package:Saydaliati/views/discussions.dart';
 
-class ChatbotApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Chatbot',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ChatbotScreen('Nom de la pharmacie'),
-    );
-  }
-}
-
+//c'est a dire chatbotApp est statique et ne change pas
 class ChatbotScreen extends StatefulWidget {
   final String nomPharmacie;
 
   const ChatbotScreen(this.nomPharmacie);
 
   @override
+  //construire le widget ChatbotScreenState, il appelle
+//createState(). Cette méthode retourne une instance de _ChatbotScreenState,
+//qui contient tout l'état nécessaire
   _ChatbotScreenState createState() => _ChatbotScreenState();
 }
 
+////Contient et gère l'état dynamique du widget,
+///construire l'interface utilisateur en réponse aux interactions de l'utilisateur.
 class _ChatbotScreenState extends State<ChatbotScreen> {
+  //utilisé dans Flutter pour gérer le contenu d'un champ de texte
   TextEditingController _textController = TextEditingController();
+  //initialise une liste vide "Message"
   List<Message> _messages = [];
   String? userAge;
   String? userAllergies;
@@ -38,9 +33,12 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   String? extractedText;
 
   @override
+  //C'est l'endroit où vous pouvez insérer le code d'initialisation qui doit s'exécuter une seule fois
   void initState() {
     super.initState();
+    //instance de la classe 'Message' qui représente un message qui sera affiché par le chatbot
     Message welcomeMessage = Message(
+      //le message ne provient pas de l'utilisateur mais du chatbot
       isUserMessage: false,
       text:
           "Bonjour! Bienvenue chez pharmacie ${widget.nomPharmacie}, s'il vous plaît entrer l'ordonnance",
@@ -49,7 +47,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     _addMessage(welcomeMessage);
   }
 
+// ajouter un message dans l'interface
   void _addMessage(Message message) {
+    // utilisé notifie Flutter que l'état interne de l'objet a changé
     setState(() {
       _messages.add(message);
     });
@@ -61,7 +61,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     if (messageText.isEmpty) return;
 
     print("Envoi du message : $messageText");
-
+// le message envoyé par le chercheur
     Message userMessage = Message(
       isUserMessage: true,
       text: messageText,
@@ -85,7 +85,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         userMedications = messageText;
         _sendFinalSummary();
       } else {
-        // Envoyer le message texte au serveur
         print("Message texte envoyé au serveur : $messageText");
       }
     }
@@ -97,6 +96,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       text: "Avez-vous des allergies ou des maladies chroniques ?",
       timestamp: Timestamp.now(),
     );
+    //ajouter le message du bot à la liste des messages affichés
     _addMessage(allergiesQuery);
   }
 
@@ -125,18 +125,23 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
   void _sendImage(String imagePath) async {
     try {
+      //lit le fichier d'image situé à imagePath en tant que liste d'octets de manière asynchrone.
       List<int> imageBytes = await File(imagePath).readAsBytes();
+      //encode les octets de l'image en une chaîne de caractères au format Base64
       String base64Image = base64Encode(imageBytes);
-
+//envoie une requête POST asynchrone à l'URL spécifiée
       final response = await http.post(
-        Uri.parse('https://269a-197-0-47-29.ngrok-free.app/upload_image'),
+        Uri.parse('https://4037-197-244-199-235.ngrok-free.app/upload_image'),
         body: {'image': base64Image},
       );
 
       if (response.statusCode == 200) {
+        //stocke le texte extrait de l'image
         extractedText = response.body;
+        //création d'un objet File représentant l'image à partir du chemin d'accès.
         File imageFile = File(imagePath);
-
+//création d'une instance de la classe Message représentant
+// le message du bot contenant l'image et le texte extrait
         Message imageMessage = Message(
           isUserMessage: false,
           imageFile: imageFile,
@@ -161,29 +166,32 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     }
   }
 
+//sélectionner des images à partir de différentes sources, comme la galerie ou l'appareil photo.
   void _openImagePicker(ImageSource source) async {
     final picker = ImagePicker();
+    //retourne un PickedFile représentant l'image sélectionnée.
     final pickedFile = await picker.pickImage(source: source);
     if (pickedFile != null) {
+      // envoie l'image au serveur et ajoute l'image et le
+      // texte extrait à la liste des messages affichés par le chatbot.
       _sendImage(pickedFile.path);
     }
   }
 
   @override
+  // build est responsable de la création et la mis à jour de l'interface utilisateur
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final double cmToPx =
-        MediaQuery.of(context).devicePixelRatio * 0.393701; // 1 cm en pixels
-
+    // Scaffold widget est prédéfini par Flutter.
     return Scaffold(
-      backgroundColor: Colors.white,
+      ////garantir que le contenu de l'application est toujours visible et accessible.
       body: SafeArea(
+        //permet de faire défiler un seul widget enfant qui pourrait dépasser les dimensions de l'écran
         child: SingleChildScrollView(
-          // Englobez tout dans un SingleChildScrollView
           child: Container(
-            height:
-                screenHeight, // Assurez-vous que le container prend toute la hauteur de l'écran
+            height: screenHeight,
+            //le widget Stack permet de superposer plusieurs widgets les uns sur les autres.
             child: Stack(
               children: [
                 Positioned.fill(
@@ -233,7 +241,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   child: Image.asset(
                     'assets/images/icons8-bulle-de-conversation-avec-points-96.png',
                     width: screenWidth,
-                    height: cmToPx,
+                    height: 1,
                   ),
                 ),
                 Positioned(
@@ -250,8 +258,11 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     child: Column(
                       children: [
                         Expanded(
+                          //permet de construire une liste d'éléments à la demande
                           child: ListView.builder(
+                            //définit le nombre d'éléments dans la liste
                             itemCount: _messages.length,
+                            // construire chaque élément de la liste
                             itemBuilder: (context, index) {
                               Message message = _messages[index];
                               bool isLastMessage =
@@ -267,6 +278,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
+                                      //décoration du message de chatbot
                                       if (!message.isUserMessage)
                                         Flexible(
                                           child: Container(
@@ -301,23 +313,21 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                                             ),
                                           ),
                                         ),
+                                      //décoration du message de l'utilisateur
                                       if (message.isUserMessage)
                                         Flexible(
                                           child: Container(
-                                            width: screenWidth *
-                                                0.5, // Réduire la largeur de la boîte de message de l'utilisateur
+                                            width: screenWidth * 0.5,
                                             padding: EdgeInsets.all(10),
                                             decoration: BoxDecoration(
-                                              color: Colors
-                                                  .white, // Couleur de fond blanche pour les messages de l'utilisateur
+                                              color: Colors.white,
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
                                             child: Text(
                                               message.text,
                                               style: TextStyle(
-                                                color: Colors
-                                                    .black, // Texte noir pour les messages de l'utilisateur
+                                                color: Colors.black,
                                               ),
                                             ),
                                           ),
@@ -327,6 +337,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                                         GestureDetector(
                                           onTap: () async {
                                             final String
+                                                //supprime les espaces de début
+                                                //et de fin du nom de la pharmacie et le stocke dans une variable normalizedPharmacyName.
                                                 normalizedPharmacyName =
                                                 widget.nomPharmacie.trim();
 

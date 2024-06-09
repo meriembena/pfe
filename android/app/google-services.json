@@ -1,33 +1,35 @@
-"fcm": {
-  "project_info": {
-    "default_notification_channel_id": "2"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:370590853795:android:2d566acf9b1d2be44ead16",
-        "android_client_info": {
-          "package_name": "com.example.chat1"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AAAAVkjvqqM:APA91bFuDiTDXah8own_EpT-piDGc__Mk3xrpRRw7aJ-ggVod6YDW3DmPgoVOElxvuOx2f1JP93IPtramu5-bZJLO251f7kMl8F2HN4RggfMW1aNHzCp-Yus6MFcwWzBEUHNPCRNjf0B"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
+{
+  "fcm": {
+    "project_info": {
+      "default_notification_channel_id": "2"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:370590853795:android:2d566acf9b1d2be44ead16",
+          "android_client_info": {
+            "package_name": "com.example.chat1"
+          }
         },
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2,
-          "flags": 2
+        "oauth_client": [],
+        "api_key": [
+          {
+            "current_key": "AAAAVkjvqqM:APA91bFuDiTDXah8own_EpT-piDGc__Mk3xrpRRw7aJ-ggVod6YDW3DmPgoVOElxvuOx2f1JP93IPtramu5-bZJLO251f7kMl8F2HN4RggfMW1aNHzCp-Yus6MFcwWzBEUHNPCRNjf0B"
+          }
+        ],
+        "services": {
+          "analytics_service": {
+            "status": 1
+          },
+          "appinvite_service": {
+            "other_platform_oauth_client": []
+          },
+          "ads_service": {
+            "status": 2,
+            "flags": 2
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -4,18 +4,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:chat1/views/Widgets/my_button.dart';
-import 'package:chat1/views/Widgets/my_textfield.dart';
-import 'package:chat1/Controller/auth_service.dart';
+import 'package:Saydaliati/views/Widgets/my_button.dart';
+import 'package:Saydaliati/views/Widgets/my_textfield.dart';
+import 'package:Saydaliati/Controller/auth_service.dart';
 
+// cette classe est dynamique change d'etat
 class RegisterPage extends StatefulWidget {
   final String role;
   final VoidCallback? onTap;
-
+  // maintenir l'état des widgets et d'optimiser les performances lors de modifications
   const RegisterPage({Key? key, required this.role, this.onTap})
       : super(key: key);
 
   @override
+  //Flutter a besoin de construire le widget RegisterPageState , il appelle
+//createState(). Cette méthode retourne une instance de _RegisterPageState ,
+//qui contient tout l'état nécessaire
   _RegisterPageState createState() => _RegisterPageState();
 }
 
@@ -30,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String _passwordValidationMessage = '';
 
   @override
+  //C'est l'endroit où vous pouvez insérer le code d'initialisation qui doit s'exécuter une seule fois
   void initState() {
     super.initState();
     _emailController.addListener(_updateValidationMessages);
@@ -53,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _updateEmailValidationMessage() {
     final emailRegex = RegExp(r'^[A-Za-z0-9._]+@gmail\.com$');
-    final pharmEmailRegex = RegExp(r'^[A-Za-z]+pharmacie@gmail.com$');
+    final pharmEmailRegex = RegExp(r'^[A-Za-z]+@gmail.com$');
     if (widget.role == 'pharmacien' &&
         !pharmEmailRegex.hasMatch(_emailController.text)) {
       setState(() {
@@ -148,8 +153,11 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   @override
+  // build est responsable de la création et la mis à jour de l'interface utilisateur
   Widget build(BuildContext context) {
+    // Scaffold widget est prédéfini par Flutter.
     return Scaffold(
+      //le widget Stack permet de superposer plusieurs widgets les uns sur les autres.
       body: Stack(
         children: [
           Positioned.fill(
@@ -262,7 +270,8 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           child: MyTextField(
             hintText: label,
-            obscureText: label.contains("Mot de passe"),
+            obscureText: label.contains("Mot de passe") ||
+                label.contains("Confirmer le mot de passe"),
             controller: controller,
             keyboardType: label.contains("Adresse e-mail")
                 ? TextInputType.emailAddress

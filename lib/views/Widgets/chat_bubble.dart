@@ -6,6 +6,7 @@ const Color otherUserColor = Color(0xFF099999);
 
 class ChatBubble extends StatelessWidget {
   final String message;
+  //Un booléen indiquant si le message a été envoyé par l'utilisateur actuel.
   final bool isCurrentUser;
   const ChatBubble({
     super.key,
@@ -14,6 +15,7 @@ class ChatBubble extends StatelessWidget {
   });
 
   @override
+  // build est responsable de la création et la mis à jour de l'interface utilisateur
   Widget build(BuildContext context) {
     // Utiliser les couleurs personnalisées pour les bulles de discussion
     Color bubbleColor = isCurrentUser ? currentUserColor : otherUserColor;

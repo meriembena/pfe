@@ -9,7 +9,7 @@
 
 
     <application
-        android:label="chat1"
+        android:label="Saydaliati"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
